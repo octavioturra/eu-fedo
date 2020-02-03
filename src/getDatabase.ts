@@ -4,7 +4,7 @@ declare global {
     _db: any;
   }
 }
-let _db = null;
+let _db: any = null;
 window._db = _db;
 export default async function(pollId: string, filesystem: any) {
   if (!_db) {

@@ -1,14 +1,18 @@
-import * as React from "react";
-import { withRouter } from "react-router-dom";
+import * as React from 'react';
+import { withRouter } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router';
 
-interface ErrorBoundaryProps {
-  children: React.ReactElement;
-  history: any;
-}
 interface ErrorBoundaryState {
   pollId: string;
   hasError: boolean;
 }
+
+type ErrorBoundaryProps = RouteComponentProps & {
+  children: React.ReactNode;
+  history: any;
+  location: any;
+  match: any;
+};
 
 export class LoginError extends Error {
   constructor(public message: string, public pollId: string) {
@@ -16,35 +20,38 @@ export class LoginError extends Error {
   }
 }
 
-export default withRouter(
-  class ErrorBoundaryLogin extends React.Component<
-    ErrorBoundaryProps,
-    ErrorBoundaryState
-  > {
-    state = {
-      hasError: false,
-      pollId: null
-    };
+class ErrorBoundaryLogin extends React.Component<ErrorBoundaryProps> {
+  state = {
+    hasError: false,
+    pollId: ''
+  };
 
-    static getDerivedStateFromError(error: LoginError) {
-      const errorName = error.constructor.name;
-      console.error(error);
-      if (errorName === "LoginError") {
-        return {
-          hasError: true,
-          pollId: error.pollId
-        };
-      }
-    }
-
-    render() {
-      console.log("bundler rendered");
-      if (this.state.hasError) {
-        this.props.history.push(`/login/${this.state.pollId}`);
-        return <>!!!</>;
-      }
-
-      return this.props.children;
+  static getDerivedStateFromError(error: LoginError) {
+    const errorName = error.constructor.name;
+    console.error(error);
+    if (errorName === 'LoginError') {
+      return {
+        hasError: true,
+        pollId: error.pollId
+      };
     }
   }
-);
+
+  render() {
+    console.log('bundler rendered');
+    if (this.state.hasError) {
+      this.props.history.push(`/login/${this.state.pollId}`);
+      return <>!!!</>;
+    }
+
+    return this.props.children;
+  }
+}
+
+export default withRouter(({ history, location, match, children }) => (
+  <>
+    <ErrorBoundaryLogin location={location} match={match} history={history}>
+      {children}
+    </ErrorBoundaryLogin>
+  </>
+));

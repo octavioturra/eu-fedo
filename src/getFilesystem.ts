@@ -3,7 +3,7 @@ declare global {
     Ipfs: any;
   }
 }
-let _ipfs = null;
+let _ipfs: any = null;
 export default async function getFilesystem(): Promise<any> {
   return new Promise((resolve, reject) => {
     if (_ipfs) {
