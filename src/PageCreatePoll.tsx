@@ -25,7 +25,13 @@ export default function PageCreatePoll() {
   const [createPoll, status, pollId] = usePollCreator();
   const { fields, setField, errors, addErrror, resetErrors } = useSimpleForm<
     Poll
-  >(null);
+  >({
+    name: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+    description: ""
+  });
   const history = useHistory();
 
   switch (status) {

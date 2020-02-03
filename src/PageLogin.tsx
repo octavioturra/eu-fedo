@@ -24,7 +24,10 @@ export default function PageCreatePoll() {
   if (!pollId) throw new Error("cannot retrieve pollId");
   const { login } = useLogin(pollId);
   const history = useHistory();
-  const { fields, setField } = useSimpleForm<Login>(null);
+  const { fields, setField } = useSimpleForm<Login>({
+    user: "",
+    password: ""
+  });
 
   return (
     <form
