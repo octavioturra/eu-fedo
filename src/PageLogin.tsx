@@ -21,6 +21,7 @@ interface Login {
 
 export default function PageCreatePoll() {
   const { pollId } = useParams();
+  if (!pollId) throw new Error("cannot retrieve pollId");
   const { login } = useLogin(pollId);
   const history = useHistory();
   const { fields, setField } = useSimpleForm<Login>(null);

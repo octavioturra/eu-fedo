@@ -16,9 +16,12 @@ export default React.memo(function PageFollowUp() {
   const { pollId } = useParams();
   const url = getShareURL(window.location.href);
 
+  if (!pollId) throw new Error("Cannot retrieve pollId");
+
   const { checkAuthenticated, authData } = useLogin(pollId);
   checkAuthenticated();
   const { username, password } = authData;
+
   const { answers, status } = usePollAnswers(username, password, pollId);
 
   console.warn("PageFollowUp", pollId, username, password, answers, status);

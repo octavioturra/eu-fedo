@@ -17,9 +17,9 @@ interface User {
   description: string;
 }
 
-export default function usePollCreator() {
+export default function usePollCreator(): [Function, number, string] {
   const [status, setStatus] = useState(0);
-  const [pollId, setPollId] = useState(null);
+  const [pollId, setPollId] = useState("");
   const setAuth = useAuth();
 
   const callback = (user: User) => {

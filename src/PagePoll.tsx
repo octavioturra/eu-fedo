@@ -10,6 +10,7 @@ class Answer {
 
 export default function PagePoll() {
   const { pollId } = useParams();
+  if (!pollId) throw new Error("cannot retrieve pollId");
   const fingerprint = useFingerprint();
   const { saveAnswer, status, poll } = usePoll(fingerprint, pollId);
 

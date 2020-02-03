@@ -33,7 +33,7 @@ const { useContext, createContext } = React;
 
 export const authContext = createContext(context);
 
-export function AuthContext({ children }) {
+export function AuthContext({ children }: { children: React.ReactNode }) {
   return React.createElement(authContext.Provider, {
     children,
     value: context

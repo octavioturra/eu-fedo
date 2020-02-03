@@ -61,9 +61,10 @@ export async function encryptAnswerPair(
   publicKey: JsonWebKey,
   answer: AnswerPair
 ): Promise<EncryptedAnswer> {
+  const key = await CryptoRSA.importEncryptKey(publicKey);
   const partialKeyPair: CryptoKeyPair = {
-    publicKey: await CryptoRSA.importEncryptKey(publicKey),
-    privateKey: null
+    publicKey: key,
+    privateKey: key
   };
   const rsa = new CryptoRSA(partialKeyPair);
   const data = JSON.stringify(answer);
@@ -75,9 +76,10 @@ export async function decryptAnswerPair(
   privateKey: JsonWebKey,
   encryptedAnswer: EncryptedAnswer
 ): Promise<AnswerPair> {
+  const key = await CryptoRSA.importDecryptKey(privateKey);
   const partialKeyPair: CryptoKeyPair = {
-    publicKey: null,
-    privateKey: await CryptoRSA.importDecryptKey(privateKey)
+    publicKey: key,
+    privateKey: key
   };
   const rsa = new CryptoRSA(partialKeyPair);
   const decrypted = await rsa.decrypt(encryptedAnswer.encryptedData);

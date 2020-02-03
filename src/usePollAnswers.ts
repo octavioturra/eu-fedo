@@ -1,24 +1,24 @@
 import { useState, useEffect } from "react";
 import { getDatabaseInstance } from "./PollDatabase";
-import { Poll, EncryptedAnswer, AuthPair, AnswerPair } from "./_DSL";
+import { Poll, EncryptedAnswer, AuthPair, AnswerPair, Answer } from "./_DSL";
 import {
   decryptAnswerPair,
   authenticate,
   generateUnsecuredPrivatekey
 } from "./PollEncryptions";
 
-class UsePollResultData {
+interface UsePollResultData {
   answers: Array<AnswerPair>;
   status: number;
-  poll: Poll;
+  poll: Poll | undefined;
 }
 
 export default function usePollAnswers(
-  username: string,
-  password: string,
+  username: string | null,
+  password: string | null,
   pollId: string
 ): UsePollResultData {
-  const [answers, setAnswers] = useState([]);
+  const [answers, setAnswers] = useState([] as AnswerPair[]);
   const [status, setStatus] = useState(0);
   const [poll, setPoll] = useState<Poll>();
 

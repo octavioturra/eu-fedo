@@ -8,7 +8,7 @@ export default class BufferUtils {
 
     return bytes;
   }
-  static toString(buffer) {
+  static toString(buffer: ArrayBuffer) {
     return Array.from(new Uint8Array(buffer))
       .map(d => String.fromCharCode(d))
       .join("");
