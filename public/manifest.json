@@ -1,0 +1,11 @@
+{
+    "name": "Eu_fedo",
+    "short_name": "fedo",
+    "theme_color": "#250048",
+    "background_color": "#250048",
+    "display": "standalone",
+    "Scope": "/",
+    "start_url": "/",
+    "icons": [],
+    "splash_pages": null
+}
