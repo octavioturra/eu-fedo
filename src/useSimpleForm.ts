@@ -1,10 +1,7 @@
 import { useState } from "react";
 export default function useSimpleForm<T>(initialState: T | null) {
-  if (!initialState) {
-    throw new Error("Provide an initial sate");
-  }
   const [errors, setErrors] = useState([] as string[]);
-  const [fields, setFields] = useState(initialState);
+  const [fields, setFields] = useState(initialState || {});
 
   function setField(field: string) {
     return (ev: any | undefined) =>
