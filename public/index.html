@@ -21,9 +21,35 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
   <title>Eu Fedo?</title>
+
   <script src="https://cdn.jsdelivr.net/npm/orbit-db@0.23.1/dist/orbitdb.min.js"></script>
   <script src="https://unpkg.com/ipfs/dist/index.min.js"></script>
   <!-- <script src="https://unpkg.com/orbit-db@0.23.1/src/OrbitDB.js"></script> -->
+  <style>
+    /* *,
+    button,
+    input,
+    select,
+    textarea {
+      margin: 0;
+      padding: 0;
+      font-style: normal;
+      text-decoration: none;
+      list-style: none;
+    } */
+
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background:
+        linear-gradient(45deg, rgba(255, 0, 0, .5), rgba(0, 255, 0, .3)) center center,
+        radial-gradient(rgba(255, 0, 255, .5), rgba(255, 192, 203, .3)) bottom left,
+        radial-gradient(rgba(128, 0, 128, .5), rgba(255, 255, 0, .3)) top right;
+      background-attachment: fixed, fixed, fixed
+    }
+  </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
 </head>
 
 <body>
