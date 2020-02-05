@@ -4,8 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 
 import useSimpleForm from "./useSimpleForm";
 import useLogin from "./useLogin";
-
-// import { AuthPair } from "./_DSL";
+import { FormField, Button, Text, Box, TextInput } from "grommet";
 
 declare global {
   interface Window {
@@ -30,34 +29,37 @@ export default function PageCreatePoll() {
   });
 
   return (
-    <form
-      onSubmit={async () => {
-        if (await login(fields.user, fields.password)) {
-          history.push(`/pesquisa/${pollId}/acompanhar`);
-        }
-      }}
-    >
-      <div>
-        <label htmlFor="usuario">Usuário</label>
-        <input
-          id="usuario"
-          type="text"
-          minLength={9}
-          required
-          onChange={setField("user")}
-        />
-      </div>
-      <div>
-        <label htmlFor="senha">Senha</label>
-        <input
-          id="senha"
-          type="password"
-          minLength={9}
-          required
-          onChange={setField("password")}
-        />
-      </div>
-      <button type="submit">Entrar</button>
-    </form>
+    <Box>
+      <form
+        onSubmit={async () => {
+          if (await login(fields.user, fields.password)) {
+            history.push(`/pesquisa/${pollId}/acompanhar`);
+          }
+        }}
+      >
+        <FormField label="Usuário" htmlFor="usuario" required>
+          <TextInput
+            id="usuario"
+            type="text"
+            minLength={9}
+            required
+            onChange={setField("user")}
+          />
+        </FormField>
+        <FormField label="Senha" htmlFor="senha" required>
+          <TextInput
+            id="senha"
+            type="password"
+            minLength={9}
+            required
+            onChange={setField("password")}
+          />
+        </FormField>
+        <Button type="submit" label="Entrar" primary />
+        <Text margin={{ left: "small" }} size="small" color="status-critical">
+          * Required Field
+        </Text>
+      </form>
+    </Box>
   );
 }

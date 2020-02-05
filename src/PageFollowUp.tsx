@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import usePollAnswers from "./usePollAnswers";
 import useLogin from "./useLogin";
 import { AnswerPair } from "./_DSL";
+import { Box, Text, Heading } from "grommet";
 
 function getShareURL(url: string): string {
   return url
@@ -42,12 +43,13 @@ export default React.memo(function PageFollowUp() {
 
   if (answers.length < 3) {
     return (
-      <>
-        <h1>Não tem respostas suficente... tente pedir mais</h1>
-        <p>
-          Compartilhe a url <b>{url}</b>
-        </p>
-      </>
+      <Box>
+        <Heading level={1}>
+          Não tem respostas suficente... tente pedir mais
+        </Heading>
+        <Text>Compartilhe a url:</Text>
+        <Text weight="bold">{url}</Text>
+      </Box>
     );
   }
 
@@ -58,11 +60,14 @@ export default React.memo(function PageFollowUp() {
   const positive = result > 5;
 
   return (
-    <>
-      <h1>Resultados</h1>
-      <p>
-        O resultado foi {positive ? "Sim, você fede" : "Não, voce não fede"}
-      </p>
-    </>
+    <Box>
+      <Heading level={2}>Resultados</Heading>
+      <Text>
+        O resultado foi{" "}
+        <Text weight="bold">
+          {positive ? "Sim, você fede" : "Não, voce não fede"}
+        </Text>
+      </Text>
+    </Box>
   );
 });

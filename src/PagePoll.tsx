@@ -3,6 +3,15 @@ import useSimpleForm from "./useSimpleForm";
 import useFingerprint from "./useFingerprint";
 import { useParams, useHistory } from "react-router-dom";
 import usePoll from "./usePoll";
+import {
+  Box,
+  RangeInput,
+  Grid,
+  Heading,
+  Text,
+  Button,
+  FormField
+} from "grommet";
 
 class Answer {
   constructor(public level: number) {}
@@ -37,37 +46,29 @@ export default function PagePoll() {
   }
 
   return (
-    <form
-      onSubmit={() => {
-        saveAnswer(fields.level);
-      }}
-    >
-      <div>
-        <h1>{poll.name}</h1>
-        <h2>{poll.description}</h2>{" "}
-      </div>
-      <div>
-        <h3>De 0 a 10, quanto fedo?</h3>
-        <div>
-          <div>Não fede</div>
-          <div>
-            {Array(10)
-              .fill(0)
-              .map((_, n) => (
-                <span key={n}>
-                  <label htmlFor={`opt_${n}`}>{n}</label>
-                  <input
-                    type="radio"
-                    id={`opt_${n}`}
-                    onChange={setField("level")}
-                  />
-                </span>
-              ))}
-          </div>
-          <div>Fede muito</div>
-        </div>
-      </div>
-      <button type="submit">Responder</button>
-    </form>
+    <Box width="medium">
+      <form
+        onSubmit={() => {
+          saveAnswer(fields.level);
+        }}
+      >
+        <Box>
+          <Heading level={1}>{poll.name}</Heading>
+          <Text>{poll.description}</Text>{" "}
+        </Box>
+
+        <FormField label="De 0 a 10 quanto fedo?" pad component={RangeInput}>
+          <RangeInput
+            max={10}
+            min={0}
+            onChange={setField("level")}
+          ></RangeInput>
+        </FormField>
+
+        <Box direction="row" justify="between" margin={{ top: "medium" }}>
+          <Button label="responder" type="submit" primary />
+        </Box>
+      </form>
+    </Box>
   );
 }

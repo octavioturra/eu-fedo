@@ -37,33 +37,35 @@ const theme = {
 
 export default function App() {
   return (
-    <Grommet theme={theme}>
-      <AuthContext>
-        <Router>
-          <Switch>
-            <Route path="/" exact>
-              <PageHome />
-            </Route>
-            <Route path="/criar">
-              <PageCreatePoll />
-            </Route>
-            <Route path="/pesquisa/:pollId+/acompanhar">
-              <ErrorBoundaryLogin>
-                <PageFollowUp />
-              </ErrorBoundaryLogin>
-            </Route>
-            <Route path="/pesquisa/:pollId+/respondido">
-              <PageAlreadyAnswered />
-            </Route>
-            <Route path="/pesquisa/:pollId+">
-              <PagePoll />
-            </Route>
-            <Route path="/login/:pollId+">
-              <PageLogin />
-            </Route>
-          </Switch>
-        </Router>
-      </AuthContext>
-    </Grommet>
+    <Box alignContent="center">
+      <Grommet theme={theme}>
+        <AuthContext>
+          <Router>
+            <Switch>
+              <Route path="/" exact>
+                <PageHome />
+              </Route>
+              <Route path="/pesquisa/criar">
+                <PageCreatePoll />
+              </Route>
+              <Route path="/pesquisa/:pollId+/acompanhar">
+                <ErrorBoundaryLogin>
+                  <PageFollowUp />
+                </ErrorBoundaryLogin>
+              </Route>
+              <Route path="/pesquisa/:pollId+/respondido">
+                <PageAlreadyAnswered />
+              </Route>
+              <Route path="/pesquisa/:pollId+">
+                <PagePoll />
+              </Route>
+              <Route path="/login/:pollId+">
+                <PageLogin />
+              </Route>
+            </Switch>
+          </Router>
+        </AuthContext>
+      </Grommet>
+    </Box>
   );
 }

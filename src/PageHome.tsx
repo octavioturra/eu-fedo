@@ -4,10 +4,10 @@ import { Box, Heading, Text, Button } from "grommet";
 
 export default function PageHome() {
   return (
-    <Box className="App" direction="column" pad="medium">
+    <Box className="App" direction="column" pad="medium" width="medium">
       <Heading level={1}>Eu fedo?</Heading>
       <Heading level={2}>Receba o feedback difícil dos seus amigos</Heading>
-      <Link to="/criar">
+      <Link to="/pesquisa/criar">
         <Button label="criar pesquisa" />
       </Link>
     </Box>
