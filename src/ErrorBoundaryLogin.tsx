@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { withRouter } from 'react-router-dom';
-import { RouteComponentProps } from 'react-router';
+import * as React from "react";
+import { withRouter } from "react-router-dom";
+import { RouteComponentProps } from "react-router";
 
 interface ErrorBoundaryState {
   pollId: string;
@@ -15,6 +15,7 @@ type ErrorBoundaryProps = RouteComponentProps & {
 };
 
 export class LoginError extends Error {
+  name: string = "LoginError";
   constructor(public message: string, public pollId: string) {
     super(message);
   }
@@ -23,13 +24,13 @@ export class LoginError extends Error {
 class ErrorBoundaryLogin extends React.Component<ErrorBoundaryProps> {
   state = {
     hasError: false,
-    pollId: ''
+    pollId: ""
   };
 
   static getDerivedStateFromError(error: LoginError) {
-    const errorName = error.constructor.name;
+    const errorName = error.name;
     console.error(error);
-    if (errorName === 'LoginError') {
+    if (errorName === "LoginError") {
       return {
         hasError: true,
         pollId: error.pollId
@@ -38,9 +39,11 @@ class ErrorBoundaryLogin extends React.Component<ErrorBoundaryProps> {
   }
 
   render() {
-    console.log('bundler rendered');
+    console.log("bundler rendered");
     if (this.state.hasError) {
-      this.props.history.push(`/login/${this.state.pollId}`);
+      setTimeout(() => {
+        this.props.history.push(`/login/${this.state.pollId}`);
+      }, 1);
       return <>!!!</>;
     }
 
