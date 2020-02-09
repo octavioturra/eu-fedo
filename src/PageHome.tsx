@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { Box, Heading, Text, Button } from "grommet";
+import { Box, Heading, Button } from "grommet";
 
 export default function PageHome() {
   return (

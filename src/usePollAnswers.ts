@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getDatabaseInstance } from "./PollDatabase";
-import { Poll, EncryptedAnswer, AuthPair, AnswerPair, Answer } from "./_DSL";
+import { Poll, EncryptedAnswer, AuthPair, AnswerPair } from "./_DSL";
 import {
   decryptAnswerPair,
   authenticate,
@@ -16,13 +16,14 @@ interface UsePollResultData {
 export default function usePollAnswers(
   username: string | null,
   password: string | null,
-  pollId: string
+  pollId: string,
+  fingerprint: string
 ): UsePollResultData {
   const [answers, setAnswers] = useState([] as AnswerPair[]);
   const [status, setStatus] = useState(0);
   const [poll, setPoll] = useState<Poll>();
 
-  const pdb = getDatabaseInstance(pollId);
+  const pdb = getDatabaseInstance(pollId, fingerprint);
   console.log("pdb", pdb);
 
   useEffect(() => {

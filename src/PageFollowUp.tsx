@@ -5,6 +5,7 @@ import usePollAnswers from "./usePollAnswers";
 import useLogin from "./useLogin";
 import { AnswerPair } from "./_DSL";
 import { Box, Text, Heading } from "grommet";
+import useFingerprint from "./useFingerprint";
 
 function getShareURL(url: string): string {
   return url
@@ -16,6 +17,7 @@ function getShareURL(url: string): string {
 export default React.memo(function PageFollowUp() {
   const { pollId } = useParams();
   const url = getShareURL(window.location.href);
+  const fingerprint = useFingerprint();
 
   if (!pollId) throw new Error("Cannot retrieve pollId");
 
@@ -23,7 +25,12 @@ export default React.memo(function PageFollowUp() {
   checkAuthenticated();
   const { username, password } = authData;
 
-  const { answers, status } = usePollAnswers(username, password, pollId);
+  const { answers, status } = usePollAnswers(
+    username,
+    password,
+    pollId,
+    fingerprint
+  );
 
   console.warn("PageFollowUp", pollId, username, password, answers, status);
 

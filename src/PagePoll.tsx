@@ -3,15 +3,7 @@ import useSimpleForm from "./useSimpleForm";
 import useFingerprint from "./useFingerprint";
 import { useParams, useHistory } from "react-router-dom";
 import usePoll from "./usePoll";
-import {
-  Box,
-  RangeInput,
-  Grid,
-  Heading,
-  Text,
-  Button,
-  FormField
-} from "grommet";
+import { Box, RangeInput, Heading, Text, Button, FormField } from "grommet";
 
 class Answer {
   constructor(public level: number) {}

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import PollDatabase from "./PollDatabase";
+import PollDatabase, { getDatabaseInstance } from "./PollDatabase";
 
 import {
   generatePollId,
@@ -22,7 +22,7 @@ export default function usePollCreator(): [Function, number, string] {
   const [pollId, setPollId] = useState("");
   const setAuth = useAuth();
 
-  const callback = (user: User) => {
+  const callback = (user: User, fingerprint: string) => {
     console.log("calling poll for", user.username, user.password);
     async function createPoll() {
       const authPair = {
@@ -36,7 +36,7 @@ export default function usePollCreator(): [Function, number, string] {
       const pollId = await generatePollId(authPair);
       setAuth(user.username, user.password);
       setPollId(pollId);
-      const pdb = new PollDatabase(pollId);
+      const pdb = getDatabaseInstance(pollId, fingerprint);
       console.log("preparing database");
       await pdb.waitPrepared();
       console.log("database prepared");

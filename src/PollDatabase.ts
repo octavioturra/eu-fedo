@@ -8,7 +8,12 @@ import timeout from "./utilsTimeout";
 export class ItemNotFoundError extends Error {}
 
 let db: PollDatabase | null = null;
-export function getDatabaseInstance(pollId: string): PollDatabase {
+let __identity: string = "";
+export function getDatabaseInstance(
+  pollId: string,
+  identity: string
+): PollDatabase {
+  __identity = identity;
   if (!db) {
     db = new PollDatabase(pollId);
   }
@@ -45,13 +50,13 @@ export default class PollDatabase {
   async createPoll(name: string, description: string = "") {
     if (!this.database) throw new Error("this.database is undefined");
     const poll = new Poll(name, description);
-    const data = new Data("poll", poll);
+    const data = new Data("poll", poll, __identity);
     await this.database.add(data);
   }
   async persistSecuredPrivateKey(securedKey: SecuredPrivateKey) {
     if (!this.database) throw new Error("this.database is undefined");
     await this.database.add(
-      new Data<SecuredPrivateKey>("admin-key", securedKey)
+      new Data<SecuredPrivateKey>("admin-key", securedKey, __identity)
     );
   }
 
@@ -81,7 +86,9 @@ export default class PollDatabase {
 
   async persistEncryptKey(publicKey: JsonWebKey) {
     if (!this.database) throw new Error("this.database is undefined");
-    await this.database.add(new Data<JsonWebKey>("encrypt-key", publicKey));
+    await this.database.add(
+      new Data<JsonWebKey>("encrypt-key", publicKey, __identity)
+    );
   }
 
   async retrieveEncryptKey(): Promise<JsonWebKey> {
@@ -99,7 +106,7 @@ export default class PollDatabase {
 
   async persistAnswer(answer: EncryptedAnswer) {
     if (!this.database) throw new Error("this.database is undefined");
-    const data = new Data("answer", answer);
+    const data = new Data("answer", answer, __identity);
     await this.database.add(data);
   }
 

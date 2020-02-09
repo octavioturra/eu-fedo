@@ -23,6 +23,7 @@ interface Poll {
 }
 
 export default function PageCreatePoll() {
+  const fingerprint = useFingerpint();
   const [createPoll, status, pollId] = usePollCreator();
   const { fields, setField, errors, addErrror, resetErrors } = useSimpleForm<
     Poll
@@ -64,7 +65,7 @@ export default function PageCreatePoll() {
             password: fields.password,
             description: fields.description
           };
-          await createPoll(user);
+          await createPoll(user, fingerprint);
         }}
       >
         <Box>

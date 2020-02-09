@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useHistory } from "react-router-dom";
 import { authenticate, isAuthValidForPollId } from "./PollEncryptions";
 import { AuthPair } from "./_DSL";
 import { LoginError } from "./ErrorBoundaryLogin";

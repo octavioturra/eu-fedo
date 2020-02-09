@@ -19,7 +19,7 @@ export default function usePoll(
     description: ""
   });
 
-  const pdb = getDatabaseInstance(pollId);
+  const pdb = getDatabaseInstance(pollId, fingerprint);
 
   useEffect(
     function() {

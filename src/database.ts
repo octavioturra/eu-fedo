@@ -5,7 +5,11 @@ declare global {
 }
 
 export class Data<T> {
-  constructor(public __type: string, public content: T) {}
+  constructor(
+    public __type: string,
+    public content: T,
+    public __identity: string
+  ) {}
 }
 
 export default class Database {
@@ -41,6 +45,14 @@ export default class Database {
     return data
       .map((d: any) => JSON.parse(d.payload.value))
       .filter((d: Data<T>) => d.__type === type)
+      .map((d: Data<T>) => d.content);
+  }
+  async getDataOfIdentity<T>(identity: string): Promise<Array<T>> {
+    const data = this.db.iterator({ limit: 500 }).collect();
+    console.log(data, "getDataOfType", identity);
+    return data
+      .map((d: any) => JSON.parse(d.payload.value))
+      .filter((d: Data<T>) => d.__identity === identity)
       .map((d: Data<T>) => d.content);
   }
 }
